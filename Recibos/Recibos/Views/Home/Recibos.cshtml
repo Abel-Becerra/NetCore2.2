@@ -1,0 +1,141 @@
+﻿
+@{
+    ViewData["Title"] = "Recibos";
+}
+
+<h1>Recibos</h1>
+
+<div class="row">
+    <div class="col-12">
+        <div class="row">
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-3">Número de Recibo</div>
+                    <div class="col-9"><input id="_id" class="form-control" type="number" /></div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-3">Proveedor</div>
+                    <div class="col-9"><select id="_proveedor" class="form-control"><option value="">-- Selecciona un Proveedor --</option></select></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-3">Monto Inicial</div>
+                    <div class="col-9"><input id="_montoinicio" class="form-control" type="number" /></div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-3">Monto Final</div>
+                    <div class="col-9"><input id="_montofin" class="form-control" type="number" /></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-3">Fecha Inicial</div>
+                    <div class="col-9"><input id="_fechainicio" class="form-control" type="date" /></div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-3">Fecha Final</div>
+                    <div class="col-9"><input id="_fechafin" class="form-control" type="date" /></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-3">Moneda</div>
+                    <div class="col-9"><select id="_moneda" class="form-control"><option value="">-- Selecciona una Moneda --</option></select></div>
+                </div>
+            </div>
+            <div class="col-6">
+                <button title="Buscar" class="btn btn-outline-info" onclick="site.loadRecibos()"><i class="fa fa-search"></i></button>
+                <button type="button" class="btn btn-outline-primary" title="Nuevo" onclick="site.new()" data-toggle="modal" data-target="#recibo"><i class="fas fa-money-check"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-hover table-striped">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Recibo</th>
+                <th>Proveedor</th>
+                <th>Monto</th>
+                <th>Moneda</th>
+                <th>Fecha</th>
+                <th>Comentario</th>
+            </tr>
+        </thead>
+        <tbody id="recibos"></tbody>
+    </table>
+</div>
+
+<div class="modal fade" id="recibo" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tituloModal"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Cerrar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <input type="hidden" id="id">
+                    <div class="form-group row">
+                        <label for="proveedor" class="col-sm-2 col-form-label">Proveedor</label>
+                        <div class="col-sm-10">
+                            @Html.TextBox("proveedor", null, new { @class = "form-control" })
+                            <input type="hidden" id="idproveedor">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="monto" class="col-sm-2 col-form-label">Monto</label>
+                        <div class="col-sm-10">
+                            @Html.TextBox("monto", null, new { @class = "form-control", @type = "number" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="moneda" class="col-sm-2 col-form-label">Moneda</label>
+                        <div class="col-sm-10">
+                            @Html.TextBox("moneda", null, new { @class = "form-control" })
+                            <input type="hidden" id="idmoneda">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="fecha" class="col-sm-2 col-form-label">Fecha</label>
+                        <div class="col-sm-10">
+                            @Html.TextBox("fecha", null, new { @class = "form-control", @type = "date" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="comentario" class="col-sm-2 col-form-label">Comentarios</label>
+                        <div class="col-sm-10">
+                            @Html.TextArea("comentario", null, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" title="Cancelar" data-dismiss="modal"><i class="fas fa-times"></i></button>
+                <button type="button" class="btn btn-primary" title="Guardar" id="guardarRecibo"><i class="fas fa-save"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/site.js"></script>
+<script>
+    setTimeout(function () { site.initRecibos(); }, 1000)
+</script>
